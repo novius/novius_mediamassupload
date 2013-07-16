@@ -46,9 +46,9 @@ $fields = array(
         'form' => array(
             'type' => 'submit',
             'tag' => 'button',
-            // Note to translator: This is a submit button
             'value' => __('Save'),
-            'class' => 'ui-priority-primary',
+            //@todo : remove 'primary'.  Only for chiba 1 compatibility.
+            'class' => 'ui-priority-primary primary',
             'data-icon' => 'check',
         ),
     ),
@@ -111,7 +111,9 @@ echo $fieldset->build_hidden_fields();
 <script type="text/javascript">
 require(
     [
-        'static/apps/novius_mediamassupload/js/jquery.novius-os.media-mass-upload'
+        'static/apps/novius_mediamassupload/js/jquery.novius-os.media-mass-upload',
+        //@todo : to remove.  Only for chiba 1 compatibility.
+        'jquery-ui.progressbar'
     ],
     function($) {
         $(function() {

@@ -133,7 +133,7 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
         $media->media_folder_id = $folder->medif_id;
         $media->media_ext = $extension;
         $media->observe('before_save');
-        $dest = $media->path();
+        $dest = APPPATH.$media->get_private_path();
 
         if (is_file($dest)) {
             $pathinfo['filename'] = $pathinfo['filename'].'-import';
