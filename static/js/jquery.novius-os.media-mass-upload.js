@@ -130,10 +130,10 @@ define(
                             }
                         };
                     var submit = function() {
-                        progress.begin();
                         if (!$container.valid() || !progress.validate($fileInput[0].files)) {
                             return false;
                         }
+                        progress.begin();
                         if (typeof FormData !== "undefined") {
                             var xhr = $.ajaxSettings.xhr();
                             $.ajax({
