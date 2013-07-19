@@ -5,6 +5,8 @@ return array(
     'provider' => array(
         'name' => 'Novius',
     ),
+    'permission' => array(
+    ),
     'namespace' => 'Novius\Media\Massupload',
     'extends' => 'noviusos_media',
 );
