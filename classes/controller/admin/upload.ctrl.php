@@ -42,7 +42,7 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
         $media_folder_id = empty($media_folder_id) ? 1 : $media_folder_id;
         $folder = \Nos\Media\Model_Folder::find($media_folder_id);
 
-        $tempdir = APPPATH.'data'.DS.'massupload';
+        $tempdir = realpath(APPPATH.'data').DS.'massupload';
 
         try {
             static::$_disallowed_extensions = \Config::get('novius-os.upload.disabled_extensions', array('php'));
@@ -51,15 +51,20 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
                 if ($unzip && $file_info['mimetype'] === 'application/zip') {
                     $unzip = new \Unzip;
 
-                    !is_dir($tempdir) && \File::create_dir(dirname($tempdir), 'massupload');
+                    $area = \File_Area::forge(array('basedir' => $tempdir));
+                    if (is_dir($tempdir)) {
+                        if (!\File::delete_dir($tempdir, true, true, $area)) {
+                             throw new \Exception(__('You have a problem here: Your Novius OS isn’t authorised to save files on this server. This is something your developer or system administrator can fix for you.'));
+                        }
+                    }
+                    if (!\File::create_dir(dirname($tempdir), 'massupload')) {
+                        throw new \Exception(__('You have a problem here: Your Novius OS isn’t authorised to save files on this server. This is something your developer or system administrator can fix for you.'));
+                    }
 
                     $unzip->extract($tmp_name, $tempdir);
 
-                    $area = \File_Area::forge(array('basedir' => $tempdir));
                     $files = \File::read_dir($tempdir, -1, null, $area);
                     $this->_importFiles($files, $tempdir.'/', $folder);
-
-                    is_dir($tempdir) && \File::delete_dir($tempdir, true, true, $area);
                 } else {
                     $pathinfo = pathinfo($_FILES['media']['name'][$i]);
                     if (in_array(\Str::lower($pathinfo['extension']), static::$_disallowed_extensions)) {
@@ -69,11 +74,12 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
                     $this->_importMedia($tmp_name, $pathinfo, $folder);
                 }
             }
+
+            is_dir($tempdir) && \File::delete_dir($tempdir, true, true);
         } catch (\Exception $e) {
+            is_dir($tempdir) && \File::delete_dir($tempdir, true, true);
             $this->send_error($e);
         }
-
-        is_dir($tempdir) && \File::delete_dir($tempdir, true, true);
 
         $dispatchEvent = array();
         foreach ($this->_dispatchEvent as $model => $true) {
