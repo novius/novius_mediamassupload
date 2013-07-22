@@ -42,21 +42,13 @@ define(
                             });
                     var progress = {
                             validate: function(files) {
-                                var total = 0,
-                                    zip = false;
+                                var total = 0;
                                 if (typeof files !== "undefined") {
                                     for (var i=0, l=files.length; i<l; i++) {
                                         var file = files[i];
                                         total += file.size;
-
-                                        if (typeof FileReader !== "undefined" && file.type === 'application/zip') {
-                                            zip = true;
-                                        }
                                     }
-                                } else {
-                                    zip = true;
                                 }
-                                $container.find('.zip-file')[zip ? 'show' : 'hide']();
                                 if (params.maxFileSize && total > params.maxFileSize) {
                                     $.nosNotify(params.texts.exceedMaxSize, 'error');
                                     return false;
@@ -65,23 +57,13 @@ define(
                             },
                             begin: function() {
                                 $progressbar = $('<div></div>')
-                                    .css({
-                                        position: 'absolute',
-                                        top: '0px',
-                                        left: '0px',
-                                        right: '0px',
-                                        width: '100%',
-                                        borderRadius: 0,
-                                        boxSizing: 'content-box',
-                                        height: $toolbar.innerHeight(),
-                                        opacity: 0.8
-                                    })
+                                    .addClass('mediamassupload-progressbar')
+                                    .css('height', $toolbar.innerHeight())
                                     .insertAfter($toolbar)
                                     .wijprogressbar({
                                         maxValue: 100,
                                         value: 0
                                     });
-                                $progressbar.find('.ui-progressbar-value').css('borderRadius', 0);
 
                                 currentTab.tab.addClass('ui-state-processing')
                                     .find('a span.nos-ostabs-icon').each(function() {
@@ -95,10 +77,7 @@ define(
 
                                 $save.find('.ui-button-icon-primary').each(function() {
                                     var $icon = $(this);
-                                    $icon.css({
-                                            backgroundSize: '0%',
-                                            textIndent: 0
-                                        })
+                                    $icon.addClass('mediamassupload-loader')
                                         .loadspinner({
                                             diameter : $icon.width(),
                                             scaling : true
@@ -121,10 +100,7 @@ define(
 
                                 $save.find('.ui-button-icon-primary').each(function() {
                                     var $icon = $(this);
-                                    $icon.css({
-                                            backgroundSize: 'inherit',
-                                            textIndent: 'inherit'
-                                        })
+                                    $icon.removeClass('mediamassupload-loader')
                                         .loadspinner('destroy');
                                 });
                             }

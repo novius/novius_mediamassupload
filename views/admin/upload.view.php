@@ -28,7 +28,7 @@ $fields = array(
         'form' => array(
             'type' => 'select',
             'options' => array(
-                'unzip' => __('Unzip before adding'),
+                'unzip' => __('Unzip before being add'),
                 'leave' => __('Leave the zipped file'),
             ),
         ),
@@ -64,7 +64,7 @@ $fieldset->form()->set_config('field_template', '{field}');
 echo $fieldset->build_hidden_fields();
 
 ?>
-<div class="page line">
+<div class="page line mediamassupload">
     <div class="col c1"></div>
     <div class="col c10">
         <div class="line" style="margin-bottom:1em;">
@@ -75,12 +75,13 @@ echo $fieldset->build_hidden_fields();
                 </tr>
                 <tr>
                     <th></th>
-                    <td style="font-style: italic;">
-                        <p><?= strtr(__('Caution! The maximum file size should not exceed {{size}}.'), array('{{size}}' => ini_get('upload_max_filesize'))) ?></p>
-                        <p><?= strtr(__('These extensions are not allowed: {{extensions}}.'), array('{{extensions}}' => implode(', ', \Config::get('novius-os.upload.disabled_extensions', array('php'))))) ?></p>
+                    <td>
+                        <p><em><?= __('You can add multiple files by handling the Maj or Ctrl keys pressed.') ?></em></p>
+                        <p><em><?= strtr(__('Caution! The maximum file size should not exceed {{size}}.'), array('{{size}}' => ini_get('upload_max_filesize'))) ?></em></p>
+                        <p><em><?= strtr(__('These extensions are not allowed: {{extensions}}.'), array('{{extensions}}' => implode(', ', \Config::get('novius-os.upload.disabled_extensions', array('php'))))) ?></em></p>
                     </td>
                 </tr>
-                <tr class="zip-file" style="display: none;">
+                <tr>
                     <th><?= $fieldset->field('unzip')->label ?></th>
                     <td><?= $fieldset->field('unzip')->build() ?></td>
                 </tr>
@@ -113,7 +114,8 @@ require(
     [
         'static/apps/novius_mediamassupload/js/jquery.novius-os.media-mass-upload',
         //@todo : to remove.  Only for chiba 1 compatibility.
-        'jquery-ui.progressbar'
+        'jquery-ui.progressbar',
+        'link!static/apps/novius_mediamassupload/css/admin.css'
     ],
     function($) {
         $(function() {
