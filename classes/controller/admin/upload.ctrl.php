@@ -90,7 +90,7 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
         }
 
         \Response::json(array(
-            'notify' => __('Done! All files have been imported.'),
+            'notify' => __('Done! All files have been uploaded.'),
             'dispatchEvent' => $dispatchEvent,
         ));
     }
