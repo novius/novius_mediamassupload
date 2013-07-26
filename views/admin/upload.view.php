@@ -9,7 +9,7 @@
  */
 
 
-Nos\I18n::current_dictionary(array('novius_mediamassupload::common', 'nos::common'));
+Nos\I18n::current_dictionary(array('novius_mediamassupload::default', 'nos::common'));
 
 $uniqid = uniqid('id_');
 
