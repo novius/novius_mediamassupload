@@ -22,17 +22,17 @@ $fields = array(
         'validation' => array(
             'required',
         ),
-        'label' => __('File from your hard drive:'),
+        'label' => __('Files from your hard drive:'),
     ),
     'unzip' => array(
         'form' => array(
             'type' => 'select',
             'options' => array(
-                'unzip' => __('Unzip before being add'),
-                'leave' => __('Leave the zipped file'),
+                'unzip' => __('Unzip (both files and folders)'),
+                'leave' => __('Leave unzipped'),
             ),
         ),
-        'label' => __('Zip files:'),
+        'label' => __('What to do with ZIP files:'),
     ),
     'media_folder_id' => array(
         'renderer' =>  'Nos\Media\Renderer_Folder',
@@ -69,6 +69,12 @@ echo $fieldset->build_hidden_fields();
     <div class="col c10">
         <div class="line" style="margin-bottom:1em;">
             <table class="fieldset standalone">
+                <tr>
+                    <th></th>
+                    <td>
+                        <p><strong><?= __('Hold the Ctrl/Cmd key to select multiple files.') ?></strong></p>
+                    </td>
+                </tr>
                 <tr class="title">
                     <th><?= $fieldset->field('media[]')->label ?></th>
                     <td><?= $fieldset->field('media[]')->build() ?></td>
@@ -76,9 +82,7 @@ echo $fieldset->build_hidden_fields();
                 <tr>
                     <th></th>
                     <td>
-                        <p><em><?= __('You can add multiple files by handling the Maj or Ctrl keys pressed.') ?></em></p>
-                        <p><em><?= strtr(__('Caution! The maximum file size should not exceed {{size}}.'), array('{{size}}' => ini_get('upload_max_filesize'))) ?></em></p>
-                        <p><em><?= strtr(__('These extensions are not allowed: {{extensions}}.'), array('{{extensions}}' => implode(', ', \Config::get('novius-os.upload.disabled_extensions', array('php'))))) ?></em></p>
+                        <p><em><?= strtr(__('Total files size must not exceed {{size}}.'), array('{{size}}' => ini_get('upload_max_filesize'))) ?>. <?= strtr(__('What’s more these file types are not allowed: {{extensions}}.'), array('{{extensions}}' => implode(', ', \Config::get('novius-os.upload.disabled_extensions', array('php'))))) ?></em></p>
                     </td>
                 </tr>
                 <tr>

@@ -14,7 +14,7 @@ return array(
     'toolbar' => array(
         'actions' => array(
             'mass_upload' => array(
-                'label' => __('Mass upload'),
+                'label' => __('Add many files at once'),
                 'action' => array(
                     'action' => 'nosTabs',
                     'method' => 'add',
