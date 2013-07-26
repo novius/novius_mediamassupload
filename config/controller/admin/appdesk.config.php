@@ -10,6 +10,9 @@
 
 Nos\I18n::current_dictionary(array('novius_mediamassupload::common', 'nos::common'));
 
+if (!\Nos\User\Permission::check('nos::access', 'novius_mediamassupload')) {
+    return array();
+}
 return array(
     'toolbar' => array(
         'actions' => array(
