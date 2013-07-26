@@ -1,11 +1,11 @@
 <?php
 /**
- * NOVIUS OS - Web OS for digital communication
+ * Media Mass Upload is an application for Novius OS for upload multiple files in media center
  *
- * @copyright  2011 Novius
+ * @copyright  2013 Novius
  * @license    GNU Affero General Public License v3 or (at your option) any later version
  *             http://www.gnu.org/licenses/agpl-3.0.html
- * @link http://www.novius-os.org
+ * @link https://github.com/novius/novius_mediamassupload
  */
 
 namespace Novius\Media\Massupload;
@@ -15,6 +15,12 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
     protected static $_disallowed_extensions = array();
 
     protected $_dispatchEvent = array();
+
+    public function prepare_i18n()
+    {
+        parent::prepare_i18n();
+        \Nos\I18n::current_dictionary('novius_mediamassupload::default');
+    }
 
     public function action_index()
     {
