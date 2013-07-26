@@ -42,7 +42,10 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
         $media_folder_id = empty($media_folder_id) ? 1 : $media_folder_id;
         $folder = \Nos\Media\Model_Folder::find($media_folder_id);
 
-        $tempdir = realpath(APPPATH.'data').DS.'massupload';
+        $tempdir = realpath(\Config::get('novius-os.temp_dir', APPPATH.'data')).DS.'massupload';
+        register_shutdown_function(function($tempdir) {
+            is_dir($tempdir) && \File::delete_dir($tempdir, true, true);
+        }, $tempdir);
 
         try {
             static::$_disallowed_extensions = \Config::get('novius-os.upload.disabled_extensions', array('php'));
@@ -74,10 +77,7 @@ class Controller_Admin_Upload extends \Nos\Controller_Admin_Application
                     $this->_importMedia($tmp_name, $pathinfo, $folder);
                 }
             }
-
-            is_dir($tempdir) && \File::delete_dir($tempdir, true, true);
         } catch (\Exception $e) {
-            is_dir($tempdir) && \File::delete_dir($tempdir, true, true);
             $this->send_error($e);
         }
 
