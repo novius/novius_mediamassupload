@@ -106,7 +106,7 @@ echo $fieldset->build_hidden_fields();
         'maxFileSize' => \Num::bytes(ini_get('upload_max_filesize')),
         'texts' => array(
             'exceedMaxSize' => strtr(
-                __('The total file size exceeds the limit upload {{size}}.'),
+                __('Total files size exceeds the upload limit {{size}}.'),
                 array('{{size}}' => ini_get('upload_max_filesize'))
             ),
         ),

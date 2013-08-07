@@ -22,7 +22,7 @@ define(
                     saveField: '',
                     maxFileSize: false,
                     texts : {
-                        exceedMaxSize: 'The total file size exceeds the limit upload.'
+                        exceedMaxSize: 'Total files size exceeds the upload limit.'
                     }
                 };
                 return this.each(function() {
