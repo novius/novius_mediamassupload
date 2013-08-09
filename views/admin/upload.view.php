@@ -45,7 +45,7 @@ $fields = array(
         'form' => array(
             'type' => 'submit',
             'tag' => 'button',
-            'value' => __('Save'),
+            'value' => __('Add'),
             //@todo : remove 'primary'.  Only for chiba 1 compatibility.
             'class' => 'ui-priority-primary primary',
             'data-icon' => 'check',
@@ -81,7 +81,7 @@ echo $fieldset->build_hidden_fields();
                 <tr>
                     <th></th>
                     <td>
-                        <p><em><?= strtr(__('Total files size must not exceed {{size}}.'), array('{{size}}' => ini_get('upload_max_filesize'))) ?>. <?= strtr(__('What’s more these file types are not allowed: {{extensions}}.'), array('{{extensions}}' => implode(', ', \Config::get('novius-os.upload.disabled_extensions', array('php'))))) ?></em></p>
+                        <p><em><?= strtr(__('Total files size must not exceed {{size}}.'), array('{{size}}' => ini_get('upload_max_filesize'))) ?> <?= strtr(__('What’s more these file types are not allowed: {{extensions}}.'), array('{{extensions}}' => implode(', ', \Config::get('novius-os.upload.disabled_extensions', array('php'))))) ?></em></p>
                     </td>
                 </tr>
                 <tr>
