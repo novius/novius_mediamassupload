@@ -6,7 +6,7 @@ Media Mass Upload is an application for Novius OS for import multiple media in o
 
 * Media Mass Upload applications run on Novius OS Chiba 1.
 
-The version Chiba 2.1 include natively the media mass upload feature. This application will never upgrade beyond Chiba 1.
+The Novius OS version Chiba 2.1 include natively the media mass upload feature. This application will never upgrade beyond Chiba 1.
 
 ## Installation
 
